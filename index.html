@@ -16,13 +16,23 @@
       font-size: 16px;
       cursor: pointer;
     }
+    /* Ajuste de tamanho para o canvas */
+    #myRadarChart {
+      max-width: 400px;
+      max-height: 400px;
+    }
+
   </style>
 </head>
 <body>
   <h1>Página Aleatória da Wikipedia com Mini Resumo</h1>
   <button id="btnCarregar">Carregar Página Aleatória</button>
   <div id="conteudo"></div>
+  <!-- Canvas para o radar chart -->
+  <canvas id="myRadarChart"></canvas>
 
+  <!-- Importa o Chart.js via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

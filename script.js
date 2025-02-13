@@ -51,6 +51,77 @@ document.getElementById('btnCarregar').addEventListener('click', async function(
         </a>
       </p>
     `;
+
+    // 5. Criação do Radar Chart usando Chart.js
+    // Primeiro, destrói o gráfico anterior se existir (boa prática para não acumular instâncias)
+if (window.radarChartInstance) {
+  window.radarChartInstance.destroy();
+}
+
+const ctx = document.getElementById('myRadarChart').getContext('2d');
+
+// Objeto de mapeamento
+const letterMapping = {
+  0: 'F',
+  1: 'E',
+  2: 'D',
+  3: 'C',
+  4: 'B',
+  5: 'A'
+};
+
+// Dados numéricos
+const data = {
+  labels: [
+    'Poder de Destruição',
+    'Velocidade',
+    'Alcance',
+    'Resistência',
+    'Precisão',
+    'Potencial de Desenvolvimento'
+  ],
+  datasets: [{
+    label: 'Atributos',
+    data: [
+      Poder_de_Destruição,
+      Velocidade,
+      Alcance,
+      Resistência,
+      Precisão,
+      Potencial_de_Desenvolvimento
+    ],
+    backgroundColor: 'rgba(54, 162, 235, 0.2)', 
+    borderColor: 'rgba(54, 162, 235, 1)',
+    borderWidth: 2,
+    pointBackgroundColor: 'rgba(54, 162, 235, 1)'
+  }]
+};
+
+const config = {
+  type: 'radar',
+  data: data,
+  options: {
+    scales: {
+      // Configuração do eixo radial (r)
+      r: {
+        min: 0,   // Mínimo 1
+        max: 5,   // Máximo 6
+        ticks: {
+          stepSize: 1,
+          // Callback para formatar o valor
+          callback: function (value) {
+            // Se existir no mapeamento, retorna a letra; caso contrário, retorna o próprio número
+            return letterMapping[value];
+          }
+        }
+      }
+    }
+  }
+};
+
+// Cria e guarda a instância do chart
+window.radarChartInstance = new Chart(ctx, config);
+
   } catch (error) {
     console.error("Erro:", error);
     document.getElementById('conteudo').innerHTML = "<p>Ocorreu um erro. Tente novamente.</p>";
